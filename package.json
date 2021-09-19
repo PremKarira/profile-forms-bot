@@ -1,0 +1,27 @@
+{
+  "name": "profile-forms-bot",
+  "version": "1.0.0",
+  "description": "An automated discord bot that sends customised profile embeds of new server members .",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PremKarira/profile-forms-bot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PremKarira/profile-forms-bot/issues"
+  },
+  "engines": {
+    "node": "16.x"
+  },
+  "homepage": "https://github.com/PremKarira/profile-forms-bot#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "mongoose": "^6.0.6"
+  }
+}
