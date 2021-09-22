@@ -22,6 +22,8 @@
   "homepage": "https://github.com/PremKarira/profile-forms-bot#readme",
   "dependencies": {
     "discord.js": "^13.1.0",
-    "mongoose": "^6.0.6"
+    "dotenv": "^10.0.0",
+    "mongoose": "^6.0.6",
+    "nvm": "^0.0.4"
   }
 }

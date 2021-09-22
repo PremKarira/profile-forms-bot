@@ -1,3 +1,4 @@
+require('dotenv').config()
 const Discord = require("discord.js")
 const mongo = require('./mongo')
 const profileSchema = require('./schemas/profile.js')
@@ -22,16 +23,17 @@ client.on("ready", () => {
 });
 
 client.on("messageCreate", async message => {
-  
+
   if(message.content.startsWith(`!sync`) && (message.author.id==="428902961847205899" 
-  || message.member.roles.cache.find(r => r.name === "Club Secretary") 
-  || message.member.roles.cache.find(r => r.name === "Moderators"))){
+    || message.member.roles.cache.find(r => r.name === "Club Secretary") 
+    || message.member.roles.cache.find(r => r.name === "Moderators"))){
     var data ;
     console.log('FETCHING FROM DATABASE')
     await mongo().then(async (mongoose) => {
       try {
         data = await profileSchema.find()
-      } finally {
+      } 
+      finally {
         mongoose.connection.close()
         data.forEach(element => {
           cache[element.id]=element
@@ -55,7 +57,7 @@ client.on("messageCreate", async message => {
         })
       }
       catch(err) {
-          console.error(err)
+        console.error(err)
       } 
       finally {
         mongoose.connection.close()
@@ -76,7 +78,7 @@ client.on("messageCreate", async message => {
         })
       }
       catch(err) {
-          console.error(err)
+        console.error(err)
       } 
       finally {
         mongoose.connection.close()
@@ -97,7 +99,7 @@ client.on("messageCreate", async message => {
         })
       }
       catch(err) {
-          console.error(err)
+        console.error(err)
       } 
       finally {
         mongoose.connection.close()
@@ -105,7 +107,7 @@ client.on("messageCreate", async message => {
     })
   }
   if(message.content.startsWith(`!fetch`)){
-    
+
     const myProfile = new MessageEmbed()
     var fetchedUserPFP
     var fetchedUser
@@ -149,8 +151,8 @@ client.on("messageCreate", async message => {
           var lameHead="My profile"
           if(!result){
             myProfile.setColor('RANDOM')
-            .setTimestamp()
-            .setDescription("This user is too busy.")
+              .setTimestamp()
+              .setDescription("This user is too busy.")
             message.channel.send({ embeds: [myProfile] })
             return;
           }
@@ -177,13 +179,13 @@ client.on("messageCreate", async message => {
               { name: 'Memory', value: result.Memory, inline: true },
               { name: '\u200B', value: '\u200B' },
             )
-    
+
           if(result.git) myProfile.setDescription(result.git)
           else myProfile.setDescription('\u200B')
           if(result.img) myProfile.setImage(result.img)
           else myProfile.setImage(`https://images-ext-2.discordapp.net/external/TFqqarchefYbJdnbWCxresJG3HA2G1SGpYE3O3_7qDw/https/i.imgur.com/98CUqwqh.jpg`)
           if(result.df) myProfile.addFields({ name: 'Dotfiles', value: result.df,})
-    
+
           message.channel.send({ embeds: [myProfile] })
         } catch(err) {
           console.error(err)
@@ -227,8 +229,8 @@ client.on("messageCreate", async message => {
       message.channel.send({ embeds: [myProfile] })
     }
   }// if(message.content.startsWith(`!setfet`)){
-    
-  
+
+
   if(message.content.startsWith(`!setfet`) && (message.channel.type === "DM")){
     if(!message.content.includes("Distro")) return;
     if(!message.content.includes("GPU")) return;
@@ -236,7 +238,7 @@ client.on("messageCreate", async message => {
     message.channel.send("If you are from IIIT Bhopal\nReply with *Y*. and if not, reply with *N*")
     const collectorIIITB = message.channel.createMessageCollector({ filter, max:1, time: 20000 });
     collectorIIITB.on('collect', mIB => {
-      
+
       var IIITB=false;
       if(mIB.content.toUpperCase()===`Y`){IIITB=true}
       else{
@@ -276,7 +278,7 @@ client.on("messageCreate", async message => {
       var k=0;
       message.channel.send("Please provide your scholar number.")
 
-      
+
       const collectorSchNo = message.channel.createMessageCollector({ filter, max:1, time: 20000 });
       collectorSchNo.on('collect', m => {
         schn=m.content.toUpperCase();
@@ -307,13 +309,13 @@ client.on("messageCreate", async message => {
         if(k===2){
           message.channel.send("Please provide your name.")
             .catch(err => console.error(err));
-          
+
           const collectorName = message.channel.createMessageCollector({ filter, max:1, time: 30000 });
           collectorName.on('collect', mN => {
             sName = mN.content.toLowerCase().split(' ');
             for (var i = 0; i < sName.length; i++) {
               sName[i] = sName[i].charAt(0).toUpperCase() +
-              sName[i].substring(1);
+                sName[i].substring(1);
             }
             sName=sName.join(" ");
             myProfile.setColor('RANDOM')
@@ -379,10 +381,10 @@ client.on("messageCreate", async message => {
                     })
                   }
                   catch(err) {
-                      console.error(err)
+                    console.error(err)
                   } 
                   finally {
-                    client.channels.cache.get('887578661140701194')
+                    client.channels.cache.get('840304064477528107')
                       .send(`Succesfully completed by ${sName} - ${message.author.tag} - ${message.author.id}`)
                     mongoose.connection.close()
                   }
@@ -400,7 +402,7 @@ client.on("messageCreate", async message => {
         }
       });
     }
-    
-  )};
+
+    )};
 })
 client.login(process.env.token)
